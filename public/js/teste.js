@@ -1,16 +1,20 @@
 //módulo de reconhecimento de voz
 
-function iniciarReconhecimento() {
-    const SpeechRecognition = webkitSpeechRecognition
-    const SpeechGrammarList = webkitSpeechGrammarList
-    const SpeechRecognitionEvent = webkitSpeechRecognitionEvent
+const SpeechRecognition = webkitSpeechRecognition
+const SpeechGrammarList = webkitSpeechGrammarList
+const SpeechRecognitionEvent = webkitSpeechRecognitionEvent
 
-    let palavras = ['Manaus', 'Escopo', 'Programa', 'html', 'black', 'blue', 'Bloco html', 'chocolate', 'coral'];
+var recognition = new SpeechRecognition();
+
+function iniciarReconhecimento() {
+
+
+    let palavras = ['Manaus', 'Escopo', 'Programa', 'html', 'black', 'blue', 'Bloco html', 'chocolate', 'coral', 'David'];
 
     let grammar = '#JSGF V1.0; grammar palavras; public <palavra> = ' + palavras.join(' | ') + ' ;'
 
 
-    var recognition = new SpeechRecognition();
+
     var speechRecognitionList = new SpeechGrammarList();
 
     speechRecognitionList.addFromString(grammar, 1);
@@ -26,6 +30,7 @@ function iniciarReconhecimento() {
     recognition.onresult = (event) => {
         var last = event.results.length - 1;
         var color = event.results[last][0].transcript;
+        console.log('Reconhecido: ' + color);
         switch (color.toUpperCase().trim()) {
             case 'MANAUS':
                 console.log('Cidade de manaus');
@@ -41,6 +46,9 @@ function iniciarReconhecimento() {
                 break;
             case 'BLOCO HTML':
                 console.log('Base do HTML');
+                break;
+            case 'DAVID':
+                console.log('RECONHECI O DAVID AQUI');
                 break;
             default:
                 console.log('Não reconhecido');
@@ -81,8 +89,8 @@ function iniciarReconhecimento() {
 //     console.log('Reconhecimento Iniciado');
 // }
 
-// function pararReconhecimento() {
-//     recognition.stop();
-//     console.log('Reconhecimento finalizado');
-// }
+function pararReconhecimento() {
+    recognition.stop();
+    console.log('Reconhecimento finalizado');
+}
 
